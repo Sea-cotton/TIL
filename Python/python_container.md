@@ -10,7 +10,7 @@
   
   - 순서가 있는 데이터(Ordered) vs. 순서가 없는 데이터(Unordered)
   
-  - 순서가 있다 != 정렬되어 있다
+  - *주의) 순서대로 나열되었다(ordered)는 것이 정렬되었다(sorted)를 보장하는 것은 아니다.*
 
 ----
 
@@ -32,7 +32,7 @@
     
     - 딕셔너리 *(가변형)*
 
-#### 
+---
 
 #### 1. 시퀀스형
 
@@ -62,6 +62,11 @@
       list_c = ['Life', 'is', 'too', 'short']
       list_d = [1, 2, 3, 'Python', ['리스트', '안에', '리스트']]
       ```
+      
+      |                | 객체 1 | 객체 2 | 객체 3 | 객체 4 | 객체 5 | 객체 6 | 객체 7 |
+      |:--------------:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
+      | Positive index | 0    | 1    | 2    | 3    | 4    | 5    | 6    |
+      | Negative index | -7   | -6   | -5   | -4   | -3   | -2   | -1   |
 
 - 리스트의 생성과 접근 예시
   
@@ -84,7 +89,7 @@
     print(location) # ['양', '대전', '구미', '광주', '부울경']    
     ```
 
-- 리스트의 생성과 접근 문제
+- 리스트의 생성과 접근 문제(이중접근)
   
   ```python
   boxes = ['A', 'B', ['apple', 'banana', 'cherry']]
@@ -95,11 +100,31 @@
   print(boxes[-1][1][0]) # b
   ```
 
-##### 
+- boxes의 3번째 요소들 중, 마지막 요소를 negative index로 접근하여 출력해 봅시다.
+  
+  ```python
+  print(boxes[2][-1]) # cherry
+  print(boxes[-1][-1]) # cherry
+  ```
 
-##### 1-2) 튜플
+- boxes의 마지막 요소들 중, 두번째 요소의 첫번째 문자열을 출력해 봅시다.
+  
+  ```python
+  print(boxes[-1][1][0]) # b
+   print(boxes[2][1][0]) # b
+  ```
+
+#### 1-2) 튜플
 
 - 여러 개의 값을 순서가 있는 구조로 저장하고 싶을 때 사용
+
+- 파이썬에서는 값을 전달할 때 튜플을 사용한다.
+  
+  ```python
+  another_tuple = 1, 2
+  print(another_tuple)
+  print(type(another_tuple))
+  ```
 
 - 리스트와의 차이점 : 생성 후, 담고 있는 값 변경 불가(불변 자료형)
 
@@ -131,6 +156,13 @@
   - 단일 항목의 경우
     
     - 하나의 항목으로 구성된 튜플은 생성 시 값 뒤에 쉼표를 붙여야 함
+      
+      ```python
+      b = (3,)
+      print(type(b)) # <class 'tuple'>
+      
+      # b = (3) 이면 이건 튜플이 아니라 그냥 괄호 우선순위 쳐준거임
+      ```
   
   - 복수 항목의 경우
     
@@ -174,6 +206,16 @@
       x, y = (1, 2)
       print(x, y) # 1, 2
       ```
+
+- 주의(헷갈리지 말기)
+  
+  ```python
+  a , b = 1, 2, 3  # 이건 에러떠서 안됨
+  
+  b = 1, 2, 3 # 이건 가능하다. 튜플이니까
+  print(b) # (1, 2, 3)
+  print(type(b)) # <class 'tuple'>
+  ```
 
 ##### 
 
@@ -225,6 +267,16 @@
   print(list(range(6, 1, -1))) # [6, 5, 4, 3, 2]
   print(list(range(6, 1, -2))) # [6, 4, 2]
   print(list(range(6, 1, 1))) # []
+  ```
+
+- 0부터 -9까지 담긴 range를 만들고 list로 형 변환을 해 봅시다.
+  
+  ```python
+  c = range(0, -10, -1)
+  print(list(c))
+  
+  # 결과
+  [0, -1, -2, -3, -4, -5, -6, -7, -8, -9]
   ```
 
 ##### 
@@ -394,6 +446,16 @@
     
     - 어떤 형태든 관계없음
 
+- 딕셔너리에는 중복된 key는 존재할 수 없다. 중복된 키의 밸류는 가장 마지막에 적힌 것으로 확정된다.
+  
+  ```python
+  dict_a = {1: 1, 2: 2, 3: 3, 1: 4}
+  print(dict_a)
+  
+  # 결과
+  {1: 4, 2: 2, 3: 3}
+  ```
+
 - 딕셔너리 생성
   
   - 중괄호({}) 혹은 dict()을 통해 생성
@@ -415,79 +477,39 @@
     print(dict_b) # {'a': 'apple', 'b': 'banana', 'list': [1, 2, 3]}
     ```
 
+- 키 값 확인 : `.keys()`
+  
+  ```python
+  print(phone_book.keys()), type(phone_book.keys()))
+  
+  # 결과
+  dict_keys(['서울', '구미', '대전', '광주', '부산'])  <class 'dict_keys'>
+  ```
+
+- 밸류값 확인`.values()`
+  
+  ```python
+  print(phone_book.values())
+  ```
+
+- key와 value 확인 : `.items()`  -> 주로 반복문에 쓰인다.
+  
+  ```python
+  print(phone_book.items())
+  
+  # 결과
+  dict_items([('서울', '02'), ('구미', '054'), ('대전', '042'), ('광주', '061'), ('부산', '051')])
+  
+  # 반복문에 활용 (필기참조)
+  for key, value in phone_book.items():
+      print(key, value)
+  
+  # 결과
+  서울 02
+  구미 054
+  대전 042
+  광주 061
+  부산 051
+  ```
+
 ---
-
-#### 형 변환(Typecasting)
-
-- 암시적 형 변환
-  
-  - 사용자가 의도하지 않고, 파이썬 내부적으로 자료형을 변환
-    
-    - bool
-    
-    - Numeric type (int, float)
-      
-      ```python
-      print(True + 3) # 4
-      print(3 + 5.0) # 8.0
-      ```
-
-- 명시적 형 변환
-  
-  - 사용자가 특정 함수를 활용하여 의도적으로 자료형을 변환하는 경우
-  
-  - int
-    
-    - str, float => int
-    
-    - 단, 형식에 맞는 문자열만 정수로 변환 가능
-      
-      ```python
-      # 문자열은 암시적 타입 변환이 되지 않음
-      print('3' + 4) # TypeError : can only concatenate str (not "int") to str
-      
-      # 명시적 타입 변환이 필요함
-      print(int('3') + 4) # 7
-      
-      # 정수 형식이 아닌 경우 타입 변환할 수 없음
-      print(int('3.5') + 5) # ValueError : invalid literal for int() with base 10 : '3.5'
-      ```
-  
-  - float
-    
-    - str(참고), int -> float
-    
-    - 단, 형식에 맞는 문자열만 float으로 전환 가능
-      
-      ```python
-      print('3.5' + 3.5) # TypeError : can only concatenate str (not "int") to str
-      
-      # 정수 형식인 경우에도 float로 타입 변환
-      print(float('3')) # 3.0
-      
-      # float 형식이 아닌 경우 타입 변환할 수 없음
-      print(float('3/4) + 5.3) # ValueError : could not convert string to float: '3/4'
-      ```
-  
-  - str
-    
-    - int, float, list, tuple, dict -> str
-      
-      ```python
-      print(str(1)) # 1
-      print(str(1.0)) # 1.0
-      print(str[1, 2, 3]) # [1, 2, 3]
-      print(str(1, 2, 3)) # (1, 2, 3)
-      print(str{1, 2, 3}) # {1, 2, 3}
-      ```
-
-- 컨테이너 형 변환
-  
-  |            | string | list        | tuple       | range | set         | dictionary |
-  | ---------- | ------ | ----------- | ----------- | ----- | ----------- | ---------- |
-  | string     |        | o           | o           | x     | o           | x          |
-  | list       | o      |             | o           | x     | o           | x          |
-  | tuple      | o      | o           |             | x     | o           | x          |
-  | range      | o      | o           | o           |       | o           | x          |
-  | set        | o      | o           | o           | x     |             | x          |
-  | dictionary | o      | o<br>(key만) | o<br>(key만) | x     | o<br>(key만) |            |

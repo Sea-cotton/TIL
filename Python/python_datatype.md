@@ -58,6 +58,18 @@
     - 10진수 0.1을 2진수로 표현하면 0.0001100..같이 무한대로 반복-> 근사값만 표시
     
     - 이런 증상을 'Floating point rounding error' 라고 함
+    
+    - python에서 float에 한하여 round함수는 예상과 다를 수있다. (부동 소수점때문에)
+      
+      ```python
+      print(round(0.5)) # 0
+      print(round(1.5)) # 2
+      print(round(2.5)) # 2
+      print(round(3.5)) # 4
+      
+      #round() 0.5는 반올림 방식에 따라 다릅니다.
+      #(짝수에서 5는 내림 / 홀수에서 5는 올림)
+      ```
   
   - 부동 소수점-해결책
     
@@ -89,6 +101,8 @@
     - 작은따옴표가 들어 있는 경우는 큰따옴표로 문자열 생성
     
     - 큰따옴표가 들어있는 경우는 작은따옴표로 문자열 생성
+    
+    - 이스케이프 문자로도 표현할 수 있다 : `print('철수 \'안녕\'')`
   
   - 삼중 따옴표(Triple Quotes)
     
@@ -97,6 +111,8 @@
     - 따옴표 안에 따옴표를 넣을 때,
     
     - 여러 줄을 나눠 입력할 때 편리
+    
+    - 단, PEP-8에서는 쌍따옴표를 쓰도록 하고있음.
       
       ```python
       print('''문자열 안에 '작은따옴표'나
@@ -108,6 +124,46 @@
       "큰따옴표"를 사용할 수 있고
       여러 줄을 사용할 때도 편리하다.
       ```
+    
+    - f-string에서도 사용할 수 있다.
+      
+      ```python
+      print(f"""2진수 : {binary_number}
+      8진수 : {octal_number}
+      10진수 : {decimal_number}
+      16진수 : {hexadecimal_number}
+      """)
+      ```
+
+- input()으로 입력받은 것은 ‘숫자’로 입력하더라도 ‘문자형’으로 출력된다.
+  
+  ```python
+  age = input()
+  print(age, type(age)) # 6 입력
+  
+  # 결과
+  6
+  6 <class 'str'>
+  ```
+
+- 문자열은 수정 불가(immutable): 중간에 값을 변경할 수 없다. 딕셔너리 key에 쓰인다.
+  
+  ```python
+  # 마지막 물음표를 느낌표로 바꿀 수 없다!
+  a = 'my string?'
+  a[-1] = '!' # 이렇게 하면 오류뜸
+  
+  # 아예 다시 값을 할당해줘야함
+  a = 'my string!'
+  ```
+
+- 문자열은 순회 가능(Iterable) : 반복문(for문) 사용 가능
+  
+  ```python
+  a = '123'
+  for char in a:
+      print(char)
+  ```
 
 - 문자열 연산
   
@@ -127,9 +183,15 @@
 
 - String Interpolation(문자열을 변수를 활용하여 만드는 법)
   
-  - %-formatting : 옛날 방식
+  - %-formatting : 옛날 방식 
+    
+    ```python
+    print('%s' % name) # ssafy
+    print('%d' % score) # 90
+    print('%f' % score) # 90.000000
+    ```
   
-  - str.format() : 옛날 방식
+  - str.format() : 옛날 방식  `print('{}'.format(name))`
   
   - f-strings : python 3.6+ 부터 지금까지 쓰임
     
@@ -151,6 +213,13 @@
     print(f'원주율은 {pi:.3}. 반지름이 2일 때 원의 넓이는 {pi*2*2}')
     # 원주율은 3.14. 반지름이 2일 때 원의 넓이는 12.566368
     ```
+    
+    - datetime 모듈 : %소문자y = 2자리, %대문자Y = 4자리 년도 나옴
+      
+      ```python
+      print(f'오늘은 {today:%y}년') # 22년
+      print(f'오늘은 {today:%Y}년') # 2022년
+      ```
 
 - Escape sequence
   
@@ -172,9 +241,21 @@
 
 - 파이썬 자료형 중 하나
 
+- `print(type(None))` : <class 'NoneType'>
+
 - 값이 없음을 표현
 
 - 일반적으로 반환 값이 없는 함수에서 사용하기도 한다
+
+- None은 빈 값이므로 bool에 넣으면 False가 나온다
+  
+  ```python
+  a = None
+  print(type(a), bool(a))
+  
+  # 결과
+  <class 'NoneType'> False
+  ```
 
 ----
 
@@ -223,6 +304,14 @@
       - 0, 0.0, (), [], {}, None, ""(빈 문자열)
       
       - 0 = False, 1 = True
+      
+      - Falsy를 제외하고는 다 True임
+    
+    - `print(bool(' '))` : True. 띄어쓰기는 값이 존재하기 때문에.
+    
+    - `print(bool([]))` : False
+    
+    - `printbool([[]]))` : True. []안에 []가 있기 때문에
     
     - 논리 연산자도 우선 순위가 존재
       
