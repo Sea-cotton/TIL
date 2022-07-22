@@ -217,6 +217,8 @@
   print(type(b)) # <class 'tuple'>
   ```
 
+- list는 ` get() `함수를 지원하지 않는다.
+
 ##### 
 
 ##### 1-3) Range
@@ -511,5 +513,9 @@
   광주 061
   부산 051
   ```
+
+- `.get()` 함수로 키에 맞는 값을 가지고 올 수 있다.
+  
+  - ex) movie.get('genre_ids') : 'movie' 딕셔너리에서 'genre_ids' 키에 맞는 값을 추출
 
 ---
