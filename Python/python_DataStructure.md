@@ -20,8 +20,8 @@
 - 모든 문자는 str타입(변경 불가능한 immutable)
   
   ```python
-  word = 'ssafy'
-  print(word) # ssafy
+  word = 'hello'
+  print(word) # hello
   
   word = 'test'
   print(word) # test
