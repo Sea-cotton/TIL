@@ -32,14 +32,15 @@
 
 - 문자열 조회/탐색 및 검증 메서드
   
-  | 문법          | 설명                                                 |
-  | ----------- | -------------------------------------------------- |
-  | s.find(x)   | x의 첫 번째 위치를 반환, 없으면 -1을 반환                         |
-  | s.index(x)  | x의 첫 번재 위치를 반환, 없으면 오류 발생(프로그램이 멈춘다)               |
-  | s.isalpha() | 알파벳 문자 여부<br/> *단순 알파벳이 아닌 유니코드 상 Letter (한국어도 포함) |
-  | s.isupper() | 대문자 여부                                             |
-  | s.islower() | 소문자 여부                                             |
-  | s.istitle() | 타이틀 형식 여부(첫글자 대문자, 나머지 소문자)                        |
+  | 문법          | 설명                                                         |
+  | ----------- | ---------------------------------------------------------- |
+  | s.find(x)   | x의 첫 번째 위치를 반환, 없으면 -1을 반환                                 |
+  | s.index(x)  | x의 첫 번재 위치를 반환, 없으면 오류 발생(프로그램이 멈춘다)                       |
+  | s.isalpha() | 알파벳 문자 여부(숫자가 아닌)<br/> *단순 알파벳이 아닌 유니코드 상 Letter (한국어도 포함) |
+  | s.isupper() | 대문자 여부                                                     |
+  | s.islower() | 소문자 여부                                                     |
+  | s.istitle() | 타이틀 형식 여부(첫글자 대문자, 나머지 소문자)                                |
+  | s.isspace() | 공백으로만 이루어져있는지 여부                                           |
   
   - `.find(x)`
     
@@ -63,6 +64,8 @@
     print('Ab'.isupper()) # False
     print('ab'.islower()) # True
     print('Title Title!'.istitle()) # True
+    print('   n'.isspace()) # False
+    print('\n \t '.isspace()) # True
     ```
     
     - `.isdemical()` , `.isdigit()`, `.isnumeric()` : 보통 `isdecimal()` 정도만 써서 숫자여부를 확인한다
@@ -83,11 +86,37 @@
   
   - `s.strip([chars])`
     
-    - 특정한 문자들을 지정하면,
+    - 특정한 문자들을 지정하면,(순서 상관없이 모든 조합)
       - 양쪽을 제거하거나(strip)
       - 왼쪽을 제거하거나(lstrip)
       - 오른쪽을 제거(rstrip)
     - 문자열을 지정하지 않으면 공백을 제거함
+      
+      ```python
+      b = 'hihihihahahahihi'
+      
+      # rstrip 메서드로 b의 오른쪽에서부터 글자 hi를 제거해봅시다.
+      b.rstrip('ih') # 'hihihihahaha'
+      
+      # lstrip 메서드로 b의 왼쪽에서부터 글자 hi를 제거해봅시다.
+      b.lstrip('hi') # 'ahahahihi'
+      ```
+      
+      ```python
+      c = 'monty python'
+      
+      # rstrip 메서드로 c의 오른쪽에서부터 글자 ' python'을 제거해봅시다.
+      c.rstrip('python') # 'monty '
+      c.rstrip(' python') # 'm'
+      ```
+      - `c.rstrip(' python')` : ‘monty’만 남을 것 같지만 ‘공백, p, y, t, h, o, n’이 들어간 모든 문자를 제거해서 m만 남게된다.
+      
+      ```python
+      # '.'을 제거하려면?
+      a = 'ssafy.python.com'
+      print(a.strip('.')) # ssafy.python.com <-제거되지 않음
+      print(a.replace('.', '')) # ssafypythoncom
+      ```
   
   - `s.split(sep=None, maxsplit=-1)`
     
@@ -214,9 +243,17 @@
   
   - `.sort()`
     
-    - 원본 리스트를 정렬함. None 반환
+    - list에서만 사용하는 메서드
     
-    - sorted 함수와 비교할 것
+    - 원본 리스트를 정렬함. None 반환
+      
+      ⇒ 정렬된 것을 변수로 쓰지 않도록 주의!(None임)
+    
+    - sorted 함수와 비교할 것(원본 변경 없이 정렬된 리스트를 새로 만들어 반환)
+    
+    - 파라미터 : key, reverse
+      
+      - `.sort(reverse=True)`
       
       ```python
       numbers = [3, 2, 5, 1]
@@ -317,18 +354,19 @@
 
 ### 딕셔너리(Dictionary)
 
-| 문법                | 설명                                                                 |
-| ----------------- | ------------------------------------------------------------------ |
-| d.clear()         | 모든 항목을 제거                                                          |
-| d.copy()          | 딕셔너리 d의 얕은 복사본을 반환                                                 |
-| d.keys()          | 딕셔너리 d의 모든 키를 담은 뷰를 반환                                             |
-| d.values()        | 딕셔너리 d의 모든 값을 담은 뷰를 반환                                             |
-| d.items()         | 딕셔너리 d의 모든 키-값의 쌍을 담은 뷰를 반환                                        |
-| d.get(k)          | 키 k의 값을 반환하는데, 키 k가 딕셔너리 d에 없을 경우 None을 반환                         |
-| d.get(k, v)       | 키 k의 값을 반환하는데, 키 k가 딕셔너리에 없을 경우 v를 반환                              |
-| d.pop(v)          | 키 k의 값을 반환하고 키 k인 항목을 딕셔너리 d에서 삭제하는데, 키 k가 딕셔너리에 없을 경우 KeyError 발생 |
-| d.pop(k, v)       | 키 k의 값을 반환하고 키 k인 항목을 딕셔너리 d에서 삭제하는데, 키 k가 딕셔너리 d에 없을 경우 v를 반환     |
-| d.update([other]) | 딕셔너리 d의 값을 매핑하여 업데이트                                               |
+| 문법                           | 설명                                                                    |
+| ---------------------------- | --------------------------------------------------------------------- |
+| d.clear()                    | 모든 항목을 제거                                                             |
+| d.copy()                     | 딕셔너리 d의 얕은 복사본을 반환                                                    |
+| d.keys()                     | 딕셔너리 d의 모든 키를 담은 뷰를 반환                                                |
+| d.values()                   | 딕셔너리 d의 모든 값을 담은 뷰를 반환                                                |
+| d.items()                    | 딕셔너리 d의 모든 키-값의 쌍을 담은 뷰를 반환                                           |
+| d.get(k)                     | 키 k의 값을 반환하는데, 키 k가 딕셔너리 d에 없을 경우 None을 반환                            |
+| d.get(k, v)                  | 키 k의 값을 반환하는데, 키 k가 딕셔너리에 없을 경우 v를 반환                                 |
+| d.setdefault(key,[, default] | 키 k의 값을 반환하는데, 키 k가 딕셔너리에 없을 경우 default 값을 갖는 키  k를 삽입한 후 default를 반환 |
+| d.pop(v)                     | 키 k의 값을 반환하고 키 k인 항목을 딕셔너리 d에서 삭제하는데, 키 k가 딕셔너리에 없을 경우 KeyError 발생    |
+| d.pop(k, v)                  | 키 k의 값을 반환하고 키 k인 항목을 딕셔너리 d에서 삭제하는데, 키 k가 딕셔너리 d에 없을 경우 v를 반환        |
+| d.update([other])            | 딕셔너리 d의 값을 매핑하여 업데이트                                                  |
 
 - `.get(key[,default])`
   
@@ -374,3 +412,9 @@
     my_dict.update(apple='사과')
     print(my_dict) # {'apple': '사과', 'banana': '바나나'}
     ```
+  
+  - 자료가 있으면 수정을하고, 없으면 새로 추가한다.    
+  
+  - 여러개의 값을 한번에 수정가능
+    
+    
