@@ -1,7 +1,5 @@
 > # CSS
 
-
-
 ## CSS의 개념
 
 - Cascading Style Sheets
@@ -20,8 +18,6 @@
   
   - 값(Value) : 어떻게 스타일 기능을 변경할 지 결정
 
-
-
 ### CSS 정의 방법
 
 - 인라인(inline)
@@ -35,8 +31,6 @@
 - 외부참조(link file)
   
   - 외부 css 파일을 `<head>` 내 `<link>` 태그로 가지고옴
-    
-    
 
 ### CSS with 개발자 도구
 
@@ -66,23 +60,24 @@
   - 링크, 동적 의사 클래스
   
   - 구조적 의사 클래스, 기타 의사 클래스, 의사 엘리먼트, 속성 선택자
-    
-    
 
 ### CSS 선택자 정리
 
 - 요소 선택자
+  
   - HTML 태그를 직접 선택
+
 - 클래스(class) 선택자
+  
   - 마침표(.) 문자로 시작하며, 해당 클래스가 적용된 항목을 선택
+
 - 아이디(id) 선택자
+  
   - (#) 문자로 시작하며, 해당 아이디가 적용된 항목을 선택
   
   - 일반적으로 하나의 문서에 1번만 사용
   
   - 여러번 사용해도 동작하지만, 단일 id를 사용하는 것을 권장
-    
-    
 
 ### CSS 적용 우선순위(cascading order)
 
@@ -92,8 +87,6 @@
   2. 우선 순위 (Specificity)
      - 인라인 > id > class, 속성, pseudo-class > 요소, pseudo-element
   3. CSS 파일 로딩 순서
-
-
 
 ### CSS 상속
 
@@ -168,8 +161,6 @@
   - (바로 위, 부모 요소에 대한) 상속의 영향을 받지 않음
   
   - 최상위 요소(html)의 사이즈를 기준으로 배수 단위를 가짐
-  
-  
 
 ### 크기 단위 (viewport)
 
@@ -182,8 +173,6 @@
 - px는 브라우저의 크기를 변경해도 그대로
 
 - vw는 브라우저의 크기에 따라 크기가 변함
-  
-  
 
 ### 색상 단위
 
@@ -207,8 +196,6 @@
 
 - a는 alpha (투명도)
 
-
-
 ### CSS 문서 표현
 
 - 텍스트
@@ -222,3 +209,93 @@
 - 기타 HTML 태그별 스타일링
   
   - 목록(li), 표(table)
+
+---
+
+## CSS Box model
+
+### CSS 원칙 I
+
+- 모든 요소는 **네모(박스모델)** 이고
+
+- 위에서부터 아래로, 왼쪽에서 오른쪽으로 **‘쌓여간다’**
+
+- **좌측 상단에 배치**
+  
+  - 좌→우 쌓이는 것 : Inline 요소
+  
+  - 위→아래 쌓이는 것 : Block 요소
+
+
+
+### Box model
+
+- 모든 HTML 요소는 box 형태로 되어있음.
+
+- 하나의 박스는 네 부분(영역)으로 이루어짐
+  
+  - margin : 외부 여백(배경색 지정x)
+  
+  - border : 테두리
+  
+  - padding : 내부 여백
+  
+  - content : 실제 내용 (글, 이미지 등)
+
+- 컨텐츠와 테두리 사이 : 내부 여백
+
+
+
+### Box model 구성(margin)
+
+```css
+.margin {
+    margin-top: 10px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+    margin-left: 40px;
+}
+```
+
+
+
+### Box model 구성(padding)
+
+```css
+.margin-padding {
+    margin: 10px;
+    padding: 30px;
+}
+```
+
+
+
+### Box model 구성(border)
+
+```css
+.border {
+    border-width: 2px;
+    border-style: dashed;
+    border-color: black;
+}
+
+.border {
+    border: 2px dashed black;
+}
+```
+
+
+
+### Box model 구성(margin/padding) - shorthand
+
+- margin과 padding은 shorthand로 줄 수 있다.
+
+- 갯수에 따른 적용 범위가 다르다.
+  
+  - `margin: 10px;` : 상하좌우 모두 10px
+  
+  - `margin: 10px 20px 30px 40px;` : 상 10px, 우 20px, 하 30px, 좌 40px
+  
+  - `margin: 10px 20px;` : 상하 10px, 좌우 20px
+  
+  - `margin: 10px 20px 30px;` : 상 10px, 좌우 20px, 하 30px
