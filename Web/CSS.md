@@ -226,8 +226,6 @@
   
   - 위→아래 쌓이는 것 : Block 요소
 
-
-
 ### Box model
 
 - 모든 HTML 요소는 box 형태로 되어있음.
@@ -244,8 +242,6 @@
 
 - 컨텐츠와 테두리 사이 : 내부 여백
 
-
-
 ### Box model 구성(margin)
 
 ```css
@@ -257,8 +253,6 @@
 }
 ```
 
-
-
 ### Box model 구성(padding)
 
 ```css
@@ -267,8 +261,6 @@
     padding: 30px;
 }
 ```
-
-
 
 ### Box model 구성(border)
 
@@ -284,8 +276,6 @@
 }
 ```
 
-
-
 ### Box model 구성(margin/padding) - shorthand
 
 - margin과 padding은 shorthand로 줄 수 있다.
@@ -299,3 +289,78 @@
   - `margin: 10px 20px;` : 상하 10px, 좌우 20px
   
   - `margin: 10px 20px 30px;` : 상 10px, 좌우 20px, 하 30px
+
+- border도 shorthand로 표현 가능하지만, 딱히 순서가 상관없다.
+
+### Box sizing
+
+- 기본적으로 모든 요소의 box-sizing 은 content-box
+  
+  - padding을 제외한 순수 contents 영역만을 box로 지정
+
+- 다만, 우리가 일반적으로 영역을 볼 때는 border까지의 너비를 100px 보는 것을 원함.
+  
+  - 그 경우 box-sizing을 border-box로 설정
+
+---
+
+## CSS Display
+
+### CSS 원칙2
+
+- display에 따라 크기와 배치가 달라진다.
+
+- display : block
+  
+  - 줄 바꿈이 일어나는 요소
+  
+  - 화면 크기 전체의 가로 폭을 차지한다.
+  
+  - 블록 레벨 요소 안에 인라인 레벨 요소가 들어갈 수 있음.
+
+- display : inline
+  
+  - 줄 바꿈이 일어나지 않는 행의 일부 요소
+  
+  - content 너비만큼 가로 폭을 차지한다.
+  
+  - **width, height, margin-top, margin-bottom을 지정할 수 없다.**
+  
+  - **상하 여백은 `line-height`로 지정한다.**
+
+
+
+### 블록 레벨 요소와 인라인 레벨 요소
+
+- display에 따라 크기와 배치가 달라진다.
+
+- display : block
+  
+  - 줄 바꿈이 일어나는 요소
+  
+  - 화면 크기 전체의 가로 폭을 차지한다.
+  
+  - 블록 레벨 요소 안에 인라인 레벨 요소가 들어갈 수 있음.
+
+- display : inline
+  
+  - 줄 바꿈이 일어나지 않는 행의 일부 요소
+  
+  - content 너비만큼 가로 폭을 차지한다.
+  
+  - **width, height, margin-top, margin-bottom을 지정할 수 없다.**
+  
+  - **상하 여백은 `line-height`로 지정한다.**
+
+### display
+
+- display : inline-block
+  - block과 inline 레벨 요소의 특징을 모두 가능
+  
+  - inline처럼 한 줄에 표시 가능하고, block처럼 width, height, margin 속성을 모두 지정할 수 있음
+- display: none
+  - 
+  
+  - 해당 요소를 화면에 표시하지 않고, 공간조차 부여되지 않음
+  
+  - 이와 비슷한 `visibility: hidden`은 해당 요소가 공간은 차지하나 화면에 표시만 하지 않는다.
